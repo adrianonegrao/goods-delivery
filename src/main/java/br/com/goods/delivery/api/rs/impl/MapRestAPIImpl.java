@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.stereotype.Service;
 
-import br.com.goods.delivery.api.rs.MapServices;
+import br.com.goods.delivery.api.rs.MapRestAPI;
 import br.com.goods.delivery.api.rs.to.MapTO;
 
 /**
@@ -23,7 +23,7 @@ import br.com.goods.delivery.api.rs.to.MapTO;
  */
 @Service
 @Path("/map")
-public class MapServicesImpl implements MapServices{
+public class MapRestAPIImpl implements MapRestAPI{
 
 	@GET
 	@Path("/echo/{input}")
@@ -32,18 +32,12 @@ public class MapServicesImpl implements MapServices{
 		return input;
 	}
 
-	@GET
-	@Produces({MediaType.TEXT_PLAIN })
-	@Path("map")
-	public String get(@PathParam("input") String input) {
-		return input;
-	}
-
 	@PUT
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/map")
-	public Response put(MapTO input) {
+	@Override
+	public Response createOrUpdateMap(MapTO input) {
 		input.setMapName(input.getMapName());
 		return Response.ok().entity(input).build();
 	}
@@ -52,7 +46,8 @@ public class MapServicesImpl implements MapServices{
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Path("/map")
-	public Response delete(MapTO input) {
+	@Override
+	public Response deleteMap(MapTO input) {
 		input.setMapName(input.getMapName());
 		return Response.ok().entity(input).build();
 	}

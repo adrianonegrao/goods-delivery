@@ -1,17 +1,19 @@
 package br.com.goods.delivery.api.rs.to;
 
-import java.util.List;
+import java.util.Set;
 
 /**
+ * Transfer Object representing a map
  * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
  *
  */
-public class MapTO {
-
+public class MapTO implements TransferObject{
+	private static final long serialVersionUID = 7936926986022175328L;
+	
 	private String mapName;
-	private List<Route> routes;
+	private Set<RouteTO> routes;
 
 	public String getMapName() {
 		return mapName;
@@ -21,11 +23,11 @@ public class MapTO {
 		this.mapName = mapName;
 	}
 	
-	public List<Route> getRoutes() {
+	public Set<RouteTO> getRoutes() {
 		return routes;
 	}
 	
-	public void setRoutes(List<Route> routes) {
+	public void setRoutes(Set<RouteTO> routes) {
 		this.routes = routes;
 	}
 	

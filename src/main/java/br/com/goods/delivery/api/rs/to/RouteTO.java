@@ -1,13 +1,15 @@
 package br.com.goods.delivery.api.rs.to;
 
 /**
+ * Transfer Object representing a route
  * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
  *
  */
-public class Route {
-    
+public class RouteTO implements TransferObject {
+	private static final long serialVersionUID = 3284798662522558671L;
+	
 	private String from;
     private String to;
     private Double distance;
@@ -55,7 +57,7 @@ public class Route {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Route other = (Route) obj;
+		RouteTO other = (RouteTO) obj;
 		if (distance == null) {
 			if (other.distance != null)
 				return false;

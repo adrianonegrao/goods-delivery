@@ -16,6 +16,8 @@
   <properties>
 		<org.springframework.version>4.1.2.RELEASE</org.springframework.version>
 	    <org.springframework.data.version>3.2.0.RELEASE</org.springframework.data.version>
+	    <neo4j.version>1.8</neo4j.version>
+		<nosqlunit.version>0.7.5</nosqlunit.version>
 	    <cxf.version>2.7.14</cxf.version>
 	    <jackson.version>1.8.6</jackson.version>
   </properties>
@@ -49,7 +51,6 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					<!-- web.xml is not mandatory since JavaEE 5 -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<warName>goods-delivery</warName>
 				</configuration>
@@ -71,7 +72,7 @@
   </build>
   
   <dependencies>
-	<!-- Spring -->
+	<!-- SPRING -->
 	<dependency>
     	<groupId>org.springframework</groupId>
 	    <artifactId>spring-core</artifactId>
@@ -97,11 +98,27 @@
 	  	<artifactId>spring-data-neo4j</artifactId>
 	  	<version>${org.springframework.data.version}</version>
 	</dependency>
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-neo4j-rest</artifactId>
+		<version>${org.springframework.data.version}</version>
+		<exclusions>
+			<exclusion>
+				<artifactId>neo4j</artifactId>
+				<groupId>org.neo4j</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
         <version>${org.springframework.version}</version>
     </dependency>
+   		<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>${org.springframework.version}</version>
+	</dependency>
     
 	<!--   APACHE CXF -->
 	<dependency>
@@ -125,6 +142,7 @@
         <version>${cxf.version}</version>
     </dependency>
     
+	<!-- JACKSON -->
 	<dependency>
         <groupId>org.codehaus.jackson</groupId>
         <artifactId>jackson-core-asl</artifactId>
@@ -140,12 +158,65 @@
         <artifactId>jackson-jaxrs</artifactId>
         <version>${jackson.version}</version>
     </dependency>
-
+	
+	<!-- 	SWAGGER   -->
 	<dependency>
 	  <groupId>com.wordnik</groupId>
 	  <artifactId>swagger-jaxrs_2.10</artifactId>
 	  <version>1.3.12</version>
 	</dependency>
 
+	<!-- 	TESTS  -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.11</version>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.mockito</groupId>
+		<artifactId>mockito-core</artifactId>
+		<version>1.9.0</version>
+		<type>jar</type>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>com.lordofthejars</groupId>
+		<artifactId>nosqlunit-neo4j</artifactId>
+		<version>${nosqlunit.version}</version>
+		<exclusions>
+			<exclusion>
+				<artifactId>neo4j-kernel</artifactId>
+				<groupId>org.neo4j</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>neo4j-cypher</artifactId>
+				<groupId>org.neo4j</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>neo4j-server</artifactId>
+				<groupId>org.neo4j.app</groupId>
+			</exclusion>
+			<exclusion>
+				<artifactId>neo4j-cypher-plugin</artifactId>
+				<groupId>org.neo4j.server.plugin</groupId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	
+	<!-- 	DATABASE 	 -->
+	<dependency>
+		<groupId>org.neo4j</groupId>
+		<artifactId>neo4j</artifactId>
+		<version>${neo4j.version}</version>
+	</dependency>
+	
   </dependencies>
+  
+  <repositories>
+  	<repository>
+		<id>neo4j</id>
+		<url>http://m2.neo4j.org/content/repositories/releases</url>
+	</repository>
+  </repositories>
 </project>
