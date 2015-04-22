@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+	<key id="name" for="node" attr.name="name" attr.type="string"></key>
+	<key id="__type__" for="node" attr.name="__type__" attr.type="string"></key>
+	<graph id="Map" edgedefault="directed">
+		
+		<node id="3">
+			<data key="__type__">br.com.goods.delivery.domain.model.City</data>
+			<data key="name">São Paulo</data>
+			<index name="__types__" key="className">br.com.goods.delivery.domain.model.City</index>
+		</node>
+	</graph>
+</graphml>
