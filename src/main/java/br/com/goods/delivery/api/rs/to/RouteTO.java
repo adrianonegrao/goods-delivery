@@ -1,5 +1,7 @@
 package br.com.goods.delivery.api.rs.to;
 
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
 /**
  * Transfer Object representing a route
  * 
@@ -9,46 +11,83 @@ package br.com.goods.delivery.api.rs.to;
  */
 public class RouteTO implements TransferObject {
 	private static final long serialVersionUID = 3284798662522558671L;
+
+	@ApiModelProperty(value = "Origin", required=true)
+	private String origin;
 	
-	private String from;
-    private String to;
+	@ApiModelProperty(value = "Destination", required=true)
+    private String destination;
+	
+	@ApiModelProperty(value = "Distance", required=true)
     private Double distance;
     
-	public String getFrom() {
-		return from;
+	/**
+	 * 
+	 */
+	public RouteTO() {
+		super();
 	}
-	
-	public void setFrom(String from) {
-		this.from = from;
+
+	/**
+	 * @return the origin
+	 */
+	public String getOrigin() {
+		return origin;
 	}
-	
-	public String getTo() {
-		return to;
+
+	/**
+	 * @param origin the origin to set
+	 */
+	public void setOrigin(String origin) {
+		this.origin = origin;
 	}
-	
-	public void setTo(String to) {
-		this.to = to;
+
+	/**
+	 * @return the destination
+	 */
+	public String getDestination() {
+		return destination;
 	}
-	
+
+	/**
+	 * @param destination the destination to set
+	 */
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+	/**
+	 * @return the distance
+	 */
 	public Double getDistance() {
 		return distance;
 	}
-	
+
+	/**
+	 * @param distance the distance to set
+	 */
 	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
+				+ ((destination == null) ? 0 : destination.hashCode());
+		result = prime * result
 				+ ((distance == null) ? 0 : distance.hashCode());
-		result = prime * result + ((from == null) ? 0 : from.hashCode());
-		result = prime * result + ((to == null) ? 0 : to.hashCode());
+		result = prime * result + ((origin == null) ? 0 : origin.hashCode());
 		return result;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -58,27 +97,31 @@ public class RouteTO implements TransferObject {
 		if (getClass() != obj.getClass())
 			return false;
 		RouteTO other = (RouteTO) obj;
+		if (destination == null) {
+			if (other.destination != null)
+				return false;
+		} else if (!destination.equals(other.destination))
+			return false;
 		if (distance == null) {
 			if (other.distance != null)
 				return false;
 		} else if (!distance.equals(other.distance))
 			return false;
-		if (from == null) {
-			if (other.from != null)
+		if (origin == null) {
+			if (other.origin != null)
 				return false;
-		} else if (!from.equals(other.from))
-			return false;
-		if (to == null) {
-			if (other.to != null)
-				return false;
-		} else if (!to.equals(other.to))
+		} else if (!origin.equals(other.origin))
 			return false;
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Route [from=" + from + ", to=" + to + ", distance=" + distance
-				+ "]";
+		return "RouteTO [origin=" + origin + ", destination=" + destination
+				+ ", distance=" + distance + "]";
 	}
+
 }

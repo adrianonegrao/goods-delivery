@@ -1,6 +1,7 @@
 package br.com.goods.delivery.domain.repository.impl;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.stereotype.Repository;
 
 import br.com.goods.delivery.domain.model.Route;
 
@@ -11,6 +12,7 @@ import br.com.goods.delivery.domain.model.Route;
  * @version 1.0
  *
  */
+@Repository
 public interface RouteRepository extends GraphRepository<Route> {
 
 }

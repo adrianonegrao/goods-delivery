@@ -2,6 +2,9 @@ package br.com.goods.delivery.api.rs.to;
 
 import java.util.Set;
 
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
 /**
  * Transfer Object representing a map
  * 
@@ -9,10 +12,14 @@ import java.util.Set;
  * @version 1.0
  *
  */
+@ApiModel(value = "A map is a...")
 public class MapTO implements TransferObject{
 	private static final long serialVersionUID = 7936926986022175328L;
 	
+	@ApiModelProperty(value = "Map name", required=true)
 	private String mapName;
+	
+	@ApiModelProperty(value = "Rotas", required=true)
 	private Set<RouteTO> routes;
 
 	public String getMapName() {

@@ -16,12 +16,18 @@ public interface MapRestAPI {
 	 * @param input
 	 * @return
 	 */
-	Response deleteMap(MapTO input);
+	Response createOrUpdateMap(MapTO input);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	Response deleteMap(String mapName);
 
 	/**
 	 * @param input
 	 * @return
 	 */
-	Response createOrUpdateMap(MapTO input);
+	Response createMap(MapTO input);
 
 }

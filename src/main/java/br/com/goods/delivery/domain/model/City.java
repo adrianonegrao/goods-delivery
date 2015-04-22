@@ -1,10 +1,12 @@
 package br.com.goods.delivery.domain.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.Indexed;
+import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 /**
@@ -14,13 +16,34 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
  * @version 1.0
  *
  */
-public class City {
+@NodeEntity
+public class City extends AbstractEntity {
 	
 	@Indexed
 	private String name;
 	
-	@Fetch @RelatedToVia(type = "DISTANCE",direction=Direction.BOTH)
-    private Set<Route> routesToOtherCities;
+	private String mapName;
+	
+	@Fetch @RelatedToVia(type = "distance",direction=Direction.BOTH)
+    private Set<Route> routes;
+	
+	public City(){
+	}
+	
+	/**
+	 * @param name
+	 */
+	public City(String name, String mapName) {
+		super();
+		this.name = name;
+		this.mapName = mapName;
+		this.routes = new HashSet<Route>();
+	}
+
+	public City(String name, Set<Route> routes){
+		this.name = name;
+		this.routes = routes;
+	}
 
 	/**
 	 * @return the name
@@ -37,17 +60,31 @@ public class City {
 	}
 
 	/**
-	 * @return the routesToOtherCities
+	 * @return the routes
 	 */
-	public Set<Route> getRoutesToOtherCities() {
-		return routesToOtherCities;
+	public Set<Route> getRoutes() {
+		return routes;
 	}
 
 	/**
-	 * @param routesToOtherCities the routesToOtherCities to set
+	 * @param routes the routes to set
 	 */
-	public void setRoutesToOtherCities(Set<Route> routesToOtherCities) {
-		this.routesToOtherCities = routesToOtherCities;
+	public void setRoutes(Set<Route> routes) {
+		this.routes = routes;
+	}
+
+	/**
+	 * @return the mapName
+	 */
+	public String getMapName() {
+		return mapName;
+	}
+
+	/**
+	 * @param mapName the mapName to set
+	 */
+	public void setMapName(String mapName) {
+		this.mapName = mapName;
 	}
 
 	/* (non-Javadoc)
@@ -56,12 +93,10 @@ public class City {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime
-				* result
-				+ ((routesToOtherCities == null) ? 0 : routesToOtherCities
-						.hashCode());
+		int result = super.hashCode();
+		result = prime * result + ((mapName == null) ? 0 : mapName.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((routes == null) ? 0 : routes.hashCode());
 		return result;
 	}
 
@@ -72,20 +107,25 @@ public class City {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		City other = (City) obj;
-		if (routesToOtherCities == null) {
-			if (other.routesToOtherCities != null)
+		if (mapName == null) {
+			if (other.mapName != null)
 				return false;
-		} else if (!routesToOtherCities.equals(other.routesToOtherCities))
+		} else if (!mapName.equals(other.mapName))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (routes == null) {
+			if (other.routes != null)
+				return false;
+		} else if (!routes.equals(other.routes))
 			return false;
 		return true;
 	}
@@ -95,8 +135,8 @@ public class City {
 	 */
 	@Override
 	public String toString() {
-		return "City [name=" + name + ", citiesThatHavePaths="
-				+ routesToOtherCities + "]";
+		return "City [name=" + name + ", mapName=" + mapName + ", routes="
+				+ routes + "]";
 	}
-	
+
 }
