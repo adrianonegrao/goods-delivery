@@ -1,11 +1,13 @@
-package br.com.goods.delivery.domain.repository.impl;
+package br.com.goods.delivery.domain.repository;
 
 import java.util.Set;
 
+import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.goods.delivery.domain.model.City;
+import br.com.goods.delivery.domain.model.Route;
 
 /**
  * @City entity repository

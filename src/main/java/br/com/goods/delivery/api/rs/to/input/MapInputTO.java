@@ -1,6 +1,8 @@
-package br.com.goods.delivery.api.rs.to;
+package br.com.goods.delivery.api.rs.to.input;
 
 import java.util.Set;
+
+import br.com.goods.delivery.api.rs.to.TransferObject;
 
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
@@ -13,14 +15,14 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
  *
  */
 @ApiModel(value = "A map is a...")
-public class MapTO implements TransferObject{
+public class MapInputTO implements TransferObject{
 	private static final long serialVersionUID = 7936926986022175328L;
 	
 	@ApiModelProperty(value = "Map name", required=true)
 	private String mapName;
 	
 	@ApiModelProperty(value = "Rotas", required=true)
-	private Set<RouteTO> routes;
+	private Set<RouteInputTO> routes;
 
 	public String getMapName() {
 		return mapName;
@@ -30,11 +32,11 @@ public class MapTO implements TransferObject{
 		this.mapName = mapName;
 	}
 	
-	public Set<RouteTO> getRoutes() {
+	public Set<RouteInputTO> getRoutes() {
 		return routes;
 	}
 	
-	public void setRoutes(Set<RouteTO> routes) {
+	public void setRoutes(Set<RouteInputTO> routes) {
 		this.routes = routes;
 	}
 	
@@ -55,7 +57,7 @@ public class MapTO implements TransferObject{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MapTO other = (MapTO) obj;
+		MapInputTO other = (MapInputTO) obj;
 		if (mapName == null) {
 			if (other.mapName != null)
 				return false;

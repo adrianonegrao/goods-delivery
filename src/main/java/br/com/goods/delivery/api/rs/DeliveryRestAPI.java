@@ -2,7 +2,7 @@ package br.com.goods.delivery.api.rs;
 
 import javax.ws.rs.core.Response;
 
-import br.com.goods.delivery.api.rs.to.MapTO;
+import br.com.goods.delivery.api.rs.to.input.DeliveryInputTO;
 
 /**
  * 
@@ -20,7 +20,6 @@ public interface DeliveryRestAPI {
 	 * @param autonomy
 	 * @return
 	 */
-	Response lessExpensiveCostDelivery(String mapName, String origin,
-			String destination, Double price, Double autonomy);
+	Response lessExpensiveCostDelivery(DeliveryInputTO deliveryTO);
 
 }

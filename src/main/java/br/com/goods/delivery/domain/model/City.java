@@ -96,7 +96,6 @@ public class City extends AbstractEntity {
 		int result = super.hashCode();
 		result = prime * result + ((mapName == null) ? 0 : mapName.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((routes == null) ? 0 : routes.hashCode());
 		return result;
 	}
 
@@ -122,11 +121,6 @@ public class City extends AbstractEntity {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (routes == null) {
-			if (other.routes != null)
-				return false;
-		} else if (!routes.equals(other.routes))
-			return false;
 		return true;
 	}
 
@@ -135,8 +129,7 @@ public class City extends AbstractEntity {
 	 */
 	@Override
 	public String toString() {
-		return "City [name=" + name + ", mapName=" + mapName + ", routes="
-				+ routes + "]";
+		return "City [name=" + name + ", mapName=" + mapName + ", routes=" + routes.size() + "]";
 	}
 
 }

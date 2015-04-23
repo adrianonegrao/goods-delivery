@@ -1,5 +1,8 @@
 package br.com.goods.delivery.api.rs.impl;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.goods.delivery.api.rs.MapRestAPI;
-import br.com.goods.delivery.api.rs.to.MapTO;
+import br.com.goods.delivery.api.rs.to.input.MapInputTO;
+import br.com.goods.delivery.api.rs.to.output.OutputTO;
+import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.services.CityService;
 import br.com.goods.delivery.services.MapService;
 
@@ -59,11 +64,18 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
-			@ApiResponse(code = 404, message = "XXXXXXXXXXXXXXXXXXXXXXXX"), 
+			@ApiResponse(code = 404, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
+			@ApiResponse(code = 415, message = "Unsupported Media Type"),
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response createMap(MapTO mapTO) {
-		return Response.ok().entity(mapService.saveMap(mapTO)).build();
+	public Response createMap(MapInputTO mapTO) {
+		try{
+			mapService.saveMap(mapTO);
+		}
+		catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MSG)).build();
+		}
+		return Response.ok().entity(new OutputTO(OutputTO.SUCCESS_MSG)).build();
 	}
 
 	@POST
@@ -76,8 +88,13 @@ public class MapRestAPIImpl implements MapRestAPI{
 			@ApiResponse(code = 404, message = "XXXXXXXXXXXXXXXXXXXXXXXX"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response createOrUpdateMap(MapTO mapTO) {
-		mapService.saveMap(mapTO);
+	public Response createOrUpdateMap(MapInputTO mapTO) {
+		try{
+			mapService.saveMap(mapTO);
+		}
+		catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MSG)).build();
+		}
 		return Response.ok().entity(mapTO).build();
 	}
 
@@ -93,7 +110,15 @@ public class MapRestAPIImpl implements MapRestAPI{
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
 	public Response findCityById(@PathParam("mapId") Long mapId) {
-		return Response.ok().entity(cityService.findById(mapId)).build();
+		City city = null;
+		try{
+			//TODO O RETORNO DESSE MÉTODO DEVE SER UM TO E NÃO UMA ENTIDADE. 
+			city = cityService.findById(mapId);
+		}
+		catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MSG)).build();
+		}
+		return Response.ok().entity(city).build();
 	}
 
 	@GET
@@ -108,7 +133,15 @@ public class MapRestAPIImpl implements MapRestAPI{
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
 	public Response findCityByName(@PathParam("mapName") String mapName) {
-		return Response.ok().entity(mapService.findByName(mapName)).build();
+		Set<City> cities = new HashSet<City>();
+		try{
+			//TODO O RETORNO DESSE MÉTODO DEVE SER UM TO E NÃO UMA ENTIDADE. 
+			cities = mapService.findByName(mapName);
+		}
+		catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MSG)).build();
+		}
+		return Response.ok().entity(cities).build();
 	}
 
 

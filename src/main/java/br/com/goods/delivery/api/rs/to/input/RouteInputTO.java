@@ -1,4 +1,6 @@
-package br.com.goods.delivery.api.rs.to;
+package br.com.goods.delivery.api.rs.to.input;
+
+import br.com.goods.delivery.api.rs.to.TransferObject;
 
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
@@ -9,7 +11,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
  * @version 1.0
  *
  */
-public class RouteTO implements TransferObject {
+public class RouteInputTO implements TransferObject {
 	private static final long serialVersionUID = 3284798662522558671L;
 
 	@ApiModelProperty(value = "Origin", required=true)
@@ -24,7 +26,7 @@ public class RouteTO implements TransferObject {
 	/**
 	 * 
 	 */
-	public RouteTO() {
+	public RouteInputTO() {
 		super();
 	}
 
@@ -96,7 +98,7 @@ public class RouteTO implements TransferObject {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RouteTO other = (RouteTO) obj;
+		RouteInputTO other = (RouteInputTO) obj;
 		if (destination == null) {
 			if (other.destination != null)
 				return false;

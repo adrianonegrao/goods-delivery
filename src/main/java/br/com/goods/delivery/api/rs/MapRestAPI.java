@@ -2,7 +2,7 @@ package br.com.goods.delivery.api.rs;
 
 import javax.ws.rs.core.Response;
 
-import br.com.goods.delivery.api.rs.to.MapTO;
+import br.com.goods.delivery.api.rs.to.input.MapInputTO;
 
 /**
  * 
@@ -16,7 +16,7 @@ public interface MapRestAPI {
 	 * @param input
 	 * @return
 	 */
-	Response createOrUpdateMap(MapTO input);
+	Response createOrUpdateMap(MapInputTO input);
 
 	/**
 	 * @param id
@@ -28,6 +28,6 @@ public interface MapRestAPI {
 	 * @param input
 	 * @return
 	 */
-	Response createMap(MapTO input);
+	Response createMap(MapInputTO input);
 
 }

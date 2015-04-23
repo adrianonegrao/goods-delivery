@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.domain.model.Route;
-import br.com.goods.delivery.domain.repository.impl.RouteRepository;
+import br.com.goods.delivery.domain.repository.RouteRepository;
 import br.com.goods.delivery.services.RouteService;
 
 /**
@@ -21,7 +21,7 @@ import br.com.goods.delivery.services.RouteService;
  *
  */
 @Service
-@Transactional(propagation=Propagation.REQUIRED)
+@Transactional
 public class RouteServiceImpl implements RouteService {
 	private static final Logger logger = LoggerFactory.getLogger(RouteServiceImpl.class);
 	
@@ -29,6 +29,7 @@ public class RouteServiceImpl implements RouteService {
 	private RouteRepository routeRepository;
 
 	@Override
+	@Transactional
 	public Route saveRoute(Route route){
 		return routeRepository.save(route);
 	}

@@ -2,7 +2,7 @@ package br.com.goods.delivery.services;
 
 import java.util.Set;
 
-import br.com.goods.delivery.api.rs.to.MapTO;
+import br.com.goods.delivery.api.rs.to.input.MapInputTO;
 import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.domain.model.Route;
 
@@ -18,7 +18,7 @@ public interface MapService {
 	 * @param mapTO
 	 * @return
 	 */
-	Set<Route> saveMap(MapTO mapTO);
+	void saveMap(MapInputTO mapTO);
 
 	/**
 	 * @param name

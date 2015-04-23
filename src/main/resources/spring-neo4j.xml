@@ -13,6 +13,12 @@
            http://www.springframework.org/schema/data/neo4j
            http://www.springframework.org/schema/data/neo4j/spring-neo4j.xsd">
  
-     <neo4j:repositories base-package="br.com.goods.delivery.domain.repository"/>
+     <neo4j:repositories base-package="br.com.goods.delivery.domain"/>
      
+	<bean id="graphDbFactory" class="org.neo4j.graphdb.factory.GraphDatabaseFactory"/>
+	<bean id="graphDatabaseService" scope="singleton" destroy-method="shutdown" factory-bean="graphDbFactory" factory-method="newEmbeddedDatabase">
+	    <constructor-arg value="goodsDeliveryNeo4j.db"/>
+	</bean>
+	
+	<neo4j:config graphDatabaseService="graphDatabaseService" base-package="br.com.goods.delivery.domain"/>
 </beans>

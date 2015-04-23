@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.goods.delivery.domain.model.City;
-import br.com.goods.delivery.domain.repository.impl.CityRepository;
+import br.com.goods.delivery.domain.repository.CityRepository;
 import br.com.goods.delivery.services.CityService;
 
 /**
@@ -31,8 +31,18 @@ public class CityServiceImpl implements CityService {
 
 	@Override
 	public City saveCity(City city){
+		City existingCity = cityRepository.findByName(city.getName());
+		if (existingCity!=null){
+			return existingCity;
+		}
 		return cityRepository.save(city);
 	}
+
+	@Override
+	public City updateCity(City city){
+		return cityRepository.save(city);
+	}
+
 	
 	@Override
 	public City findByName(String name){

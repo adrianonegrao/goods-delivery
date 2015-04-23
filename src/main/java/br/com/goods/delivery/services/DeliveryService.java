@@ -1,8 +1,7 @@
 package br.com.goods.delivery.services;
 
-import java.util.Set;
+import br.com.goods.delivery.api.rs.to.output.DeliveryOutputTO;
 
-import br.com.goods.delivery.domain.model.City;
 
 /**
  * @author Tayguer A. Ap. Onofre
@@ -10,5 +9,16 @@ import br.com.goods.delivery.domain.model.City;
  *
  */
 public interface DeliveryService {
+
+	/**
+	 * @param mapName
+	 * @param originName
+	 * @param destinationName
+	 * @param price
+	 * @param autonomy
+	 * @return
+	 */
+	DeliveryOutputTO findLessExpensiveCostDelivery(String mapName, String originName,
+			String destinationName, Double price, Double autonomy);
 
 }

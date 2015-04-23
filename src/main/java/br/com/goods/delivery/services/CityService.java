@@ -35,4 +35,10 @@ public interface CityService {
 	 */
 	Set<City> findByMapName(String mapName);
 
+	/**
+	 * @param city
+	 * @return
+	 */
+	City updateCity(City city);
+
 }

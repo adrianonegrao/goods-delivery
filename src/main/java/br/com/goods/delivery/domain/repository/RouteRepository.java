@@ -1,4 +1,4 @@
-package br.com.goods.delivery.domain.repository.impl;
+package br.com.goods.delivery.domain.repository;
 
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Repository;
