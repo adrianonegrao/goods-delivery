@@ -24,8 +24,8 @@ public class DeliveryOutputTO extends OutputTO{
 		this.route = route;
 	}
 
-	public DeliveryOutputTO(Double cost, String route, String mensage) {
-		super();
+	public DeliveryOutputTO(Double cost, String route, String message) {
+		super(message);
 		this.cost = cost;
 		this.route = route;
 	}
@@ -53,51 +53,6 @@ public class DeliveryOutputTO extends OutputTO{
 	 */
 	public void setRoute(String rota) {
 		this.route = rota;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
-		result = prime * result + ((route == null) ? 0 : route.hashCode());
-		return result;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DeliveryOutputTO other = (DeliveryOutputTO) obj;
-		if (cost == null) {
-			if (other.cost != null)
-				return false;
-		} else if (!cost.equals(other.cost))
-			return false;
-		if (route == null) {
-			if (other.route != null)
-				return false;
-		} else if (!route.equals(other.route))
-			return false;
-		return true;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "DeliveryOutPutTO [cost=" + cost + ", rota=" + route + "]";
 	}
 	
 }

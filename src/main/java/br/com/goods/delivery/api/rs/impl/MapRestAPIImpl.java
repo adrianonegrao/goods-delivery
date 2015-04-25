@@ -1,8 +1,5 @@
 package br.com.goods.delivery.api.rs.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,11 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.goods.delivery.api.rs.MapRestAPI;
+import br.com.goods.delivery.api.rs.to.CityTO;
+import br.com.goods.delivery.api.rs.to.MapTO;
 import br.com.goods.delivery.api.rs.to.input.MapInputTO;
 import br.com.goods.delivery.api.rs.to.output.OutputTO;
-import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.services.CityService;
 import br.com.goods.delivery.services.MapService;
+import br.com.goods.delivery.services.exception.NotFoundException;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -49,14 +48,6 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@Autowired
 	private CityService cityService;
 	
-	@GET
-	@Path("/echo/{input}")
-	@Consumes({MediaType.TEXT_PLAIN})
-	@Produces({MediaType.TEXT_PLAIN })
-	public String ping(@PathParam("input") String cityName) {
-		return cityName;
-	}
-
 	@PUT
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
@@ -64,18 +55,16 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
-			@ApiResponse(code = 404, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
 			@ApiResponse(code = 415, message = "Unsupported Media Type"),
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
 	public Response createMap(MapInputTO mapTO) {
 		try{
 			mapService.saveMap(mapTO);
+		}catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MESSAGE)).build();
 		}
-		catch(Exception e){
-			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MSG)).build();
-		}
-		return Response.ok().entity(new OutputTO(OutputTO.SUCCESS_MSG)).build();
+		return Response.status(Response.Status.CREATED).entity(new OutputTO("Map has been successfully created", mapTO)).build();
 	}
 
 	@POST
@@ -85,79 +74,101 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
-			@ApiResponse(code = 404, message = "XXXXXXXXXXXXXXXXXXXXXXXX"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response createOrUpdateMap(MapInputTO mapTO) {
+	public Response createOrUpdateMap(MapInputTO mapInputTO) {
 		try{
-			mapService.saveMap(mapTO);
+			mapService.saveMap(mapInputTO);
+		}catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MESSAGE)).build();
 		}
-		catch(Exception e){
-			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MSG)).build();
-		}
-		return Response.ok().entity(mapTO).build();
+		return Response.ok().entity(new OutputTO("Map has been successfully created")).build();
 	}
 
 	@GET
 	@Path("/city/{cityId}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@Consumes({MediaType.APPLICATION_JSON})
 	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
-			@ApiResponse(code = 404, message = "XXXXXXXXXXXXXXXXXXXXXXXX"), 
+			@ApiResponse(code = 404, message = "City not found"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response findCityById(@PathParam("mapId") Long mapId) {
-		City city = null;
+	public Response findCityById(@PathParam("cityId") Long cityId) {
+		CityTO city = new CityTO();
 		try{
-			//TODO O RETORNO DESSE MÉTODO DEVE SER UM TO E NÃO UMA ENTIDADE. 
-			city = cityService.findById(mapId);
+			city = cityService.findById(cityId);
+		}catch(NotFoundException e){
+			return Response.status(Response.Status.NOT_FOUND).entity(new OutputTO(e.getMessage())).build();
+		}catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MESSAGE)).build();
 		}
-		catch(Exception e){
-			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MSG)).build();
-		}
-		return Response.ok().entity(city).build();
+		return Response.ok().entity(new OutputTO(OutputTO.SUCCESS_MESSAGE, city)).build();
 	}
 
 	@GET
 	@Path("/{mapName}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@Consumes({MediaType.APPLICATION_JSON})
 	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
-			@ApiResponse(code = 404, message = "XXXXXXXXXXXXXXXXXXXXXXXX"), 
+			@ApiResponse(code = 404, message = "Map not found"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
 	public Response findCityByName(@PathParam("mapName") String mapName) {
-		Set<City> cities = new HashSet<City>();
+		MapTO mapTO = new MapTO(mapName, null, null);
 		try{
-			//TODO O RETORNO DESSE MÉTODO DEVE SER UM TO E NÃO UMA ENTIDADE. 
-			cities = mapService.findByName(mapName);
+			mapTO = mapService.findByName(mapName);
+		}catch(NotFoundException e){
+			return Response.status(Response.Status.NOT_FOUND).entity(new OutputTO(e.getMessage())).build();
+		}catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MESSAGE)).build();
 		}
-		catch(Exception e){
-			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MSG)).build();
-		}
-		return Response.ok().entity(cities).build();
+		return Response.ok().entity(new OutputTO(OutputTO.SUCCESS_MESSAGE, mapTO)).build();
 	}
 
 
-	@DELETE
+	@GET
 	@Path("/{mapName}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@Consumes({MediaType.APPLICATION_JSON})
 	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
-			@ApiResponse(code = 404, message = "XXXXXXXXXXXXXXXXXXXXXXXX"), 
+			@ApiResponse(code = 404, message = "Routes not found"), 
+			@ApiResponse(code = 500, message = "Internal server error")
+	})
+	public Response findRoutesByMapName(@PathParam("mapName") String mapName) {
+		MapTO map = new MapTO();
+		try{
+			map = mapService.findByName(mapName);
+		}catch(Exception e){
+			return Response.serverError().entity(new OutputTO(OutputTO.ERROR_MESSAGE)).build();
+		}
+		return Response.ok().entity(map.getRoutes()).build();
+	}
+	
+	@DELETE
+	@Path("/{mapName}")
+	@Produces({MediaType.APPLICATION_JSON})
+	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
+			@ApiResponse(code = 404, message = "Map not found"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
 	public Response deleteMap(@PathParam("mapName") String mapName) {
-		return Response.ok().build();
+		try{
+			mapService.remove(mapName);
+		}catch(NotFoundException e){
+			return Response.status(Response.Status.NOT_FOUND).entity(new OutputTO(e.getMessage())).build();
+		}catch(Exception e){
+			return Response.serverError().entity(new OutputTO("Map has been successfully deleted")).build();
+		}
+		return Response.ok().entity(new OutputTO(OutputTO.SUCCESS_MESSAGE)).build();
 	}
 	
 }

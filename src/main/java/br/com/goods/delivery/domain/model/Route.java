@@ -12,9 +12,10 @@ import org.springframework.data.neo4j.annotation.StartNode;
  * @version 1.0
  *
  */
-@RelationshipEntity(type="distance")
+@RelationshipEntity(type=Route.DISTANCE_RELATIONSHIP_TYPE)
 public class Route extends AbstractEntity {
-
+	public static final String DISTANCE_RELATIONSHIP_TYPE = "distance";
+	
 	@StartNode  @Fetch
 	private City origin;
 	

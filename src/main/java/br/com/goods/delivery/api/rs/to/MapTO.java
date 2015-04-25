@@ -1,9 +1,6 @@
-package br.com.goods.delivery.api.rs.to.input;
+package br.com.goods.delivery.api.rs.to;
 
 import java.util.Set;
-
-import br.com.goods.delivery.api.rs.to.RouteTO;
-import br.com.goods.delivery.api.rs.to.TransferObject;
 
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
@@ -16,14 +13,28 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
  *
  */
 @ApiModel(value = "A map is a...")
-public class MapInputTO implements TransferObject{
+public class MapTO implements TransferObject{
 	private static final long serialVersionUID = 7936926986022175328L;
 	
 	@ApiModelProperty(value = "Map name", required=true)
 	private String mapName;
 	
-	@ApiModelProperty(value = "Rotas", required=true)
+	@ApiModelProperty(value = "Routes", required=true)
 	private Set<RouteTO> routes;
+	
+	@ApiModelProperty(value = "Cities", required=true)
+	private Set<CityTO> cities;
+
+	public MapTO() {
+		super();
+	}
+
+	public MapTO(String mapName, Set<RouteTO> routes, Set<CityTO> cities) {
+		super();
+		this.mapName = mapName;
+		this.routes = routes;
+		this.cities = cities;
+	}
 
 	public String getMapName() {
 		return mapName;
@@ -39,6 +50,14 @@ public class MapInputTO implements TransferObject{
 	
 	public void setRoutes(Set<RouteTO> routes) {
 		this.routes = routes;
+	}
+	
+	public Set<CityTO> getCities() {
+		return cities;
+	}
+
+	public void setCities(Set<CityTO> cities) {
+		this.cities = cities;
 	}
 	
 }

@@ -17,8 +17,8 @@
 		     <cxf:logging/>
 		</jaxrs:features>
         <jaxrs:serviceBeans>
-        	<bean class="br.com.goods.delivery.api.rs.impl.DeliveryRestAPIImpl"/>
         	<bean class="br.com.goods.delivery.api.rs.impl.MapRestAPIImpl"/>
+        	<bean class="br.com.goods.delivery.api.rs.impl.DeliveryRestAPIImpl"/>
             <ref bean="swaggerResourceJSON" />
         </jaxrs:serviceBeans>
 		<jaxrs:providers>
@@ -28,5 +28,4 @@
             <ref bean="apiWriter" />
 		</jaxrs:providers>
     </jaxrs:server>
-    
 </beans>

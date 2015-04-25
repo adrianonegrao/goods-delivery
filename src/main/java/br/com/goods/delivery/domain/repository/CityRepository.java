@@ -2,12 +2,10 @@ package br.com.goods.delivery.domain.repository;
 
 import java.util.Set;
 
-import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.goods.delivery.domain.model.City;
-import br.com.goods.delivery.domain.model.Route;
 
 /**
  * @City entity repository
@@ -19,7 +17,8 @@ import br.com.goods.delivery.domain.model.Route;
 @Repository
 public interface CityRepository extends GraphRepository<City> {
 	
+	public City findByMapNameAndName(String mapName, String name);
 	public City findById(Long id);
-	public City findByName(String name);
+	public Set<City> findByName(String name);
 	public Set<City> findByMapName(String mapName);
 }

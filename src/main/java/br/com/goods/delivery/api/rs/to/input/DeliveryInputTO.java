@@ -3,10 +3,12 @@
  */
 package br.com.goods.delivery.api.rs.to.input;
 
-import com.wordnik.swagger.annotations.ApiModel;
-import com.wordnik.swagger.annotations.ApiModelProperty;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import br.com.goods.delivery.api.rs.to.TransferObject;
+
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 
 /**
  * @author Tayguer A. Ap. Onofre
@@ -14,6 +16,7 @@ import br.com.goods.delivery.api.rs.to.TransferObject;
  *
  */
 @ApiModel(value = "XXXXXXXXXXXXXXXXXXXXXXXX")
+@XmlRootElement(name = "Delivery")
 public class DeliveryInputTO implements TransferObject{
 	private static final long serialVersionUID = 1L;
 	
@@ -21,8 +24,9 @@ public class DeliveryInputTO implements TransferObject{
 	private String mapName;
 	private String originName;
 	private String destinationName;
-	@ApiModelProperty(value = "XXXXXXXXXXXXXXXXXXXXXXXX", required=true)
+	@ApiModelProperty(value = "XXXXXXXXXXXXXXXXXXXXXXXX", required=true, dataType="Double (ex: 2.5)")
 	private Double price;
+	@ApiModelProperty(value = "XXXXXXXXXXXXXXXXXXXXXXXX", required=true, dataType="Double (ex: 2.5)")
 	private Double autonomy;
 	
 	public DeliveryInputTO() {

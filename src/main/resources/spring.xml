@@ -12,4 +12,5 @@
 	<import resource="spring-cxf.xml"/>
 	<import resource="spring-swagger.xml"/>
 	<import resource="spring-neo4j.xml"/>
+	<import resource="spring-tx.xml"/>
 </beans>

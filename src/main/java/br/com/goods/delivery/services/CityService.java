@@ -2,7 +2,9 @@ package br.com.goods.delivery.services;
 
 import java.util.Set;
 
+import br.com.goods.delivery.api.rs.to.CityTO;
 import br.com.goods.delivery.domain.model.City;
+import br.com.goods.delivery.services.exception.NotFoundException;
 
 /**
  * @author Tayguer A. Ap. Onofre
@@ -15,13 +17,14 @@ public interface CityService {
 	 * @param name
 	 * @return
 	 */
-	City findByName(String name);
+	Set<CityTO> findByName(String name);
 
 	/**
 	 * @param id
 	 * @return
+	 * @throws NotFoundException 
 	 */
-	City findById(Long id);
+	CityTO findById(Long id) throws NotFoundException;
 
 	/**
 	 * @param city
@@ -32,13 +35,29 @@ public interface CityService {
 	/**
 	 * @param mapName
 	 * @return
+	 * @throws NotFoundException 
 	 */
-	Set<City> findByMapName(String mapName);
+	Set<CityTO> findByMapName(String mapName) throws NotFoundException;
 
 	/**
 	 * @param city
 	 * @return
 	 */
 	City updateCity(City city);
+
+	/**
+	 * @param mapName
+	 * @param name
+	 */
+	void deleteByMapNameAndName(String mapName, String name);
+
+	/**
+	 * @param mapName
+	 * @param name
+	 * @return
+	 * @throws NotFoundException
+	 */
+	CityTO findByMapNameAndName(String mapName, String name)
+			throws NotFoundException;
 
 }

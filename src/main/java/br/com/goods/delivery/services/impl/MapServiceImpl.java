@@ -3,6 +3,7 @@
  */
 package br.com.goods.delivery.services.impl;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -11,13 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.goods.delivery.api.rs.helper.CityHelper;
+import br.com.goods.delivery.api.rs.to.CityTO;
+import br.com.goods.delivery.api.rs.to.MapTO;
+import br.com.goods.delivery.api.rs.to.RouteTO;
 import br.com.goods.delivery.api.rs.to.input.MapInputTO;
-import br.com.goods.delivery.api.rs.to.input.RouteInputTO;
 import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.domain.model.Route;
 import br.com.goods.delivery.services.CityService;
 import br.com.goods.delivery.services.MapService;
 import br.com.goods.delivery.services.RouteService;
+import br.com.goods.delivery.services.exception.NotFoundException;
 
 /**
  * @author Tayguer A. Ap. Onofre
@@ -35,11 +40,12 @@ public class MapServiceImpl implements MapService {
 	@Autowired
 	private RouteService routeService;
 	
+	@Autowired
+	private CityHelper cityHelper;
+	
 	@Override
-	@Transactional
 	public void saveMap(MapInputTO mapTO){
-		
-		for (RouteInputTO routeTO : mapTO.getRoutes()) {
+		for (RouteTO routeTO : mapTO.getRoutes()) {
 			City origin = cityService.saveCity(new City(routeTO.getOrigin(), mapTO.getMapName()));
 			City destination = cityService.saveCity(new City(routeTO.getDestination(), mapTO.getMapName()));
 			Route route = routeService.saveRoute(new Route(origin, destination, routeTO.getDistance()));
@@ -49,8 +55,23 @@ public class MapServiceImpl implements MapService {
 	}
 
 	@Override
-	public Set<City> findByName(String name){
-		return cityService.findByMapName(name);
+	public MapTO findByName(String name) throws NotFoundException{
+		Set<CityTO> citiesTO = cityService.findByMapName(name);
+		Set<RouteTO> routesTO = new HashSet<RouteTO>(); 
+
+		for(CityTO city : citiesTO ){
+			routesTO.addAll(city.getRoutes());
+		}
+		
+		return new MapTO(name, routesTO, citiesTO);
+	}
+	
+	@Override
+	public void remove(String name) throws NotFoundException{
+		Set<CityTO> citiesTO = cityService.findByMapName(name);
+		for(CityTO city : citiesTO ){
+			cityService.deleteByMapNameAndName(name, city.getCityName());
+		}
 	}
 
 }

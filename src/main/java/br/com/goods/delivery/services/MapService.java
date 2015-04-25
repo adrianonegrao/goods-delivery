@@ -1,10 +1,8 @@
 package br.com.goods.delivery.services;
 
-import java.util.Set;
-
+import br.com.goods.delivery.api.rs.to.MapTO;
 import br.com.goods.delivery.api.rs.to.input.MapInputTO;
-import br.com.goods.delivery.domain.model.City;
-import br.com.goods.delivery.domain.model.Route;
+import br.com.goods.delivery.services.exception.NotFoundException;
 
 
 /**
@@ -23,7 +21,14 @@ public interface MapService {
 	/**
 	 * @param name
 	 * @return
+	 * @throws NotFoundException 
 	 */
-	Set<City> findByName(String name);
+	MapTO findByName(String name) throws NotFoundException;
+
+	/**
+	 * @param name
+	 * @throws NotFoundException 
+	 */
+	void remove(String name) throws NotFoundException;
 
 }

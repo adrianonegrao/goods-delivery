@@ -16,7 +16,7 @@
 	<properties>
 		<org.springframework.data.version>3.2.0.RELEASE</org.springframework.data.version>
 		<jackson.version.d>1.8.6</jackson.version.d>
-		<cxf.version>2.7.14</cxf.version>
+		<cxf.version>2.7.15</cxf.version>
 		<nosqlunit.version>0.7.5</nosqlunit.version>
 	</properties>
 
@@ -99,6 +99,11 @@
 			<version>${org.springframework.data.version}</version>
 		</dependency>
 		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-neo4j-aspects</artifactId>
+		    <version>${org.springframework.data.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.neo4j</groupId>
 			<artifactId>neo4j-kernel</artifactId>
 			<version>2.1.4</version>
@@ -140,7 +145,22 @@
 	        <artifactId>cxf-rt-transports-http</artifactId>
 	        <version>${cxf.version}</version>
 	    </dependency>
-	    
+			    
+			    
+			    
+			    
+			    
+		<dependency>
+		    <groupId>javax.el</groupId>
+		    <artifactId>javax.el-api</artifactId>
+		    <version>3.0.0</version>
+		</dependency>
+
+
+
+			    
+			    
+			    
 		<!-- JACKSON -->
 		<dependency>
 	        <groupId>org.codehaus.jackson</groupId>
@@ -157,17 +177,6 @@
 	        <artifactId>jackson-jaxrs</artifactId>
 	        <version>${jackson.version.d}</version>
 	    </dependency>
-		
-		<dependency>
-		    <groupId>javax.validation</groupId>
-		    <artifactId>validation-api</artifactId>
-		    <version>1.1.0.Final</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-validator</artifactId>
-		    <version>5.0.2.Final</version>
-		</dependency>
 		
 		<!-- 	SWAGGER   -->
 		<dependency>
@@ -205,6 +214,12 @@
 					<groupId>org.neo4j.server.plugin</groupId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjrt</artifactId>
+		    <version>1.7.4</version>
 		</dependency>
 	</dependencies>
 

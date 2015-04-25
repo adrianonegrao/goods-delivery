@@ -2,8 +2,6 @@ package br.com.goods.delivery.api.rs;
 
 import javax.ws.rs.core.Response;
 
-import br.com.goods.delivery.api.rs.to.input.DeliveryInputTO;
-
 /**
  * 
  * @author Tayguer A. Ap. Onofre
@@ -12,6 +10,8 @@ import br.com.goods.delivery.api.rs.to.input.DeliveryInputTO;
  */
 public interface DeliveryRestAPI {
 
+//	Response lessExpensiveCostDelivery(DeliveryInputTO deliveryTO);
+	
 	/**
 	 * @param mapName
 	 * @param sourceName
@@ -20,6 +20,7 @@ public interface DeliveryRestAPI {
 	 * @param autonomy
 	 * @return
 	 */
-	Response lessExpensiveCostDelivery(DeliveryInputTO deliveryTO);
+	Response lessExpensiveCostDelivery(String mapName, String originName,
+			String destinationName, Double price, Double autonomy);
 
 }
