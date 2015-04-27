@@ -17,7 +17,7 @@ This project was created to answer one of the items from Wallmart's selective pr
 
 ## Getting Started
 
-Download (https://github.com/tayguer/goods-delivery) or clone from GIT and then use Maven (3.2.*) and reJava (1.7 or better):
+[Download](https://github.com/tayguer/goods-delivery) or clone from GIT and then use Maven (3.2.*) and reJava (1.7 or better):
 
 ## Running the application
 
@@ -28,27 +28,28 @@ Download (https://github.com/tayguer/goods-delivery) or clone from GIT and then 
 There are two ways to use the Goods Delivery Rest API. The first one is accessing the application context and using the web interface available, the second one is using some rest service client, as postman, and making calls to API.
 
 The basic services are:
-*Adding a new map: [ PUT /goods-delivery/delivery/map ]
-![createMap](https://github.com/tayguer/goods-delivery/blob/develop/createMap.png)
 
-*Finding the less expensive cost of a delivery and its route: [ GET /goods-delivery/delivery/lessExpensiveCostRoute/ ]
-![shortestPath](https://github.com/tayguer/goods-delivery/blob/develop/shortestPath.png)
+* Adding a new map: [ PUT /goods-delivery/delivery/map ]
+![createMap](https://github.com/tayguer/goods-delivery/blob/develop/docs/imagescreateMap.png)
 
-*Cleaning up the database: [ DELETE /goods-delivery/map/delete ]
-![shortestPath](https://github.com/tayguer/goods-delivery/blob/develop/shortestPath.png)
+* Finding the less expensive cost of a delivery and its route: [ GET /goods-delivery/delivery/lessExpensiveCostRoute/ ]
+![shortestPath](https://github.com/tayguer/goods-delivery/blob/develop/docs/images/shortestPath.png)
 
-There are also other map operations found at: [ GET /goods-delivery/ ]
-![api](https://github.com/tayguer/goods-delivery/blob/develop/api.png)
+* Cleaning up the database: [ DELETE /goods-delivery/map/delete ]
+![deleteMap](https://github.com/tayguer/goods-delivery/blob/develop/docs/images/deleteMap.png)
+
+* There are also other map operations found at: [ GET /goods-delivery/ ]
+![api](https://github.com/tayguer/goods-delivery/blob/develop/docs/images/api.png)
 
 ## Documentation
 
-*Detailed:[ base url: /goods-delivery/ ]
-*Short:[ base url: /goods-delivery/api/?_wadl ]
-*Shortest:[ base url: /goods-delivery/api/-docs ]
+* Detailed:[ base url: /goods-delivery/ ]
+* Short:[ base url: /goods-delivery/api/?_wadl ]
+* Shortest:[ base url: /goods-delivery/api/-docs ]
 
 ## Code coverage
 
-![coverage](https://github.com/tayguer/goods-delivery/blob/develop/coverage.png)
+![coverage](https://github.com/tayguer/goods-delivery/blob/develop/docs/images/coverage.png)
 
 ## Contributors
 * Suggestions
@@ -56,6 +57,6 @@ There are also other map operations found at: [ GET /goods-delivery/ ]
 
 ##Contact the developer
 
-*mailto: tayguer@gmail.com
-*Access: http://tayguer.branded.me or www.facebook.com/tayguer.onofre or yet https://br.linkedin.com/in/tayguer
+* mailto: tayguer@gmail.com
+* Access: http://tayguer.branded.me or www.facebook.com/tayguer.onofre or yet https://br.linkedin.com/in/tayguer
 
