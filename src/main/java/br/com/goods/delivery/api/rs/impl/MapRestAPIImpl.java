@@ -11,15 +11,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.goods.delivery.api.rs.MapRestAPI;
 import br.com.goods.delivery.api.rs.to.CityTO;
 import br.com.goods.delivery.api.rs.to.MapTO;
-import br.com.goods.delivery.api.rs.to.input.MapInputTO;
+import br.com.goods.delivery.api.rs.to.MapTO;
 import br.com.goods.delivery.api.rs.to.output.OutputTO;
 import br.com.goods.delivery.services.CityService;
 import br.com.goods.delivery.services.MapService;
@@ -27,10 +25,13 @@ import br.com.goods.delivery.services.exception.NotFoundException;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
+
 /**
+ * Rest API that contains the map operation like get, delete or update a map and cities. 
  * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
@@ -40,7 +41,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Path("/map")
 @Api(value = "/map", description = "Operations about maps")
 public class MapRestAPIImpl implements MapRestAPI{
-	private static final Logger logger = LoggerFactory.getLogger(MapRestAPIImpl.class);
 	
 	@Autowired
 	private MapService mapService;
@@ -51,14 +51,15 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@PUT
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
+	@ApiOperation(value = "Operation method that creates or update a Map.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
+			@ApiResponse(code = 400, message = "Invalid parameters"),
 			@ApiResponse(code = 415, message = "Unsupported Media Type"),
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response createMap(MapInputTO mapTO) {
+	@Override
+	public Response createMap(MapTO mapTO) {
 		try{
 			mapService.saveMap(mapTO);
 		}catch(Exception e){
@@ -70,13 +71,14 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
+	@ApiOperation(value = "Operation method that creates or update a Map.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
+			@ApiResponse(code = 400, message = "Invalid parameters"),
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response createOrUpdateMap(MapInputTO mapInputTO) {
+	@Override
+	public Response createOrUpdateMap(MapTO mapInputTO) {
 		try{
 			mapService.saveMap(mapInputTO);
 		}catch(Exception e){
@@ -88,14 +90,15 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@GET
 	@Path("/city/{cityId}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
+	@ApiOperation(value = "Operation method that find a city by its id.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
+			@ApiResponse(code = 400, message = "Invalid parameters"),
 			@ApiResponse(code = 404, message = "City not found"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response findCityById(@PathParam("cityId") Long cityId) {
+	@Override
+	public Response findCityById(@ApiParam(name="cityId", required=true) @PathParam("cityId") Long cityId) {
 		CityTO city = new CityTO();
 		try{
 			city = cityService.findById(cityId);
@@ -110,14 +113,15 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@GET
 	@Path("/{mapName}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
+	@ApiOperation(value = "Operation method that find a city in all registered maps", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
+			@ApiResponse(code = 400, message = "Invalid parameters"),
 			@ApiResponse(code = 404, message = "Map not found"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response findCityByName(@PathParam("mapName") String mapName) {
+	@Override
+	public Response findCityByName(@ApiParam(name="mapName", required=true) @PathParam("mapName") String mapName) {
 		MapTO mapTO = new MapTO(mapName, null, null);
 		try{
 			mapTO = mapService.findByName(mapName);
@@ -133,14 +137,15 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@GET
 	@Path("/{mapName}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
+	@ApiOperation(value = "Operation method that find all map's routes.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
+			@ApiResponse(code = 400, message = "Invalid parameters"),
 			@ApiResponse(code = 404, message = "Routes not found"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response findRoutesByMapName(@PathParam("mapName") String mapName) {
+	@Override
+	public Response findRoutesByMapName(@ApiParam(name="mapName", required=true) @PathParam("mapName") String mapName) {
 		MapTO map = new MapTO();
 		try{
 			map = mapService.findByName(mapName);
@@ -153,14 +158,15 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@DELETE
 	@Path("/{mapName}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "XXXXXXXXXXXXXXXXXXXXXXXX", notes = "XXXXXXXXXXXXXXXXXXXXXXXX", response = String.class)
+	@ApiOperation(value = "Operation method that delete a map.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
-			@ApiResponse(code = 400, message = "XXXXXXXXXXXXXXXXXXXXXXXX"),
+			@ApiResponse(code = 400, message = "Invalid parameters"),
 			@ApiResponse(code = 404, message = "Map not found"), 
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
-	public Response deleteMap(@PathParam("mapName") String mapName) {
+	@Override
+	public Response deleteMap(@ApiParam(name="mapName", required=true) @PathParam("mapName") String mapName) {
 		try{
 			mapService.remove(mapName);
 		}catch(NotFoundException e){

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
@@ -17,7 +18,10 @@ import org.springframework.data.neo4j.annotation.RelatedToVia;
  *
  */
 @NodeEntity
-public class City extends AbstractEntity {
+public class City implements Entity {
+	
+	@GraphId
+	private Long id;
 	
 	@Indexed
 	private String name;
@@ -30,9 +34,6 @@ public class City extends AbstractEntity {
 	public City(){
 	}
 	
-	/**
-	 * @param name
-	 */
 	public City(String name, String mapName) {
 		super();
 		this.name = name;
@@ -45,46 +46,36 @@ public class City extends AbstractEntity {
 		this.routes = routes;
 	}
 
-	/**
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/**
-	 * @return the routes
-	 */
 	public Set<Route> getRoutes() {
 		return routes;
 	}
 
-	/**
-	 * @param routes the routes to set
-	 */
 	public void setRoutes(Set<Route> routes) {
 		this.routes = routes;
 	}
 
-	/**
-	 * @return the mapName
-	 */
 	public String getMapName() {
 		return mapName;
 	}
 
-	/**
-	 * @param mapName the mapName to set
-	 */
 	public void setMapName(String mapName) {
 		this.mapName = mapName;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/* (non-Javadoc)

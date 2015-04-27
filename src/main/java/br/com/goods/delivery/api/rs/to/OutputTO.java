@@ -2,6 +2,7 @@ package br.com.goods.delivery.api.rs.to;
 
 
 /**
+ * Transfer Object used to rest service api return. 
  * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0

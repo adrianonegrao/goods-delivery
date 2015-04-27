@@ -1,11 +1,12 @@
 package br.com.goods.delivery.services;
 
 import br.com.goods.delivery.api.rs.to.MapTO;
-import br.com.goods.delivery.api.rs.to.input.MapInputTO;
 import br.com.goods.delivery.services.exception.NotFoundException;
 
 
 /**
+ * Services that provides business rules about maps. 
+ * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
  *
@@ -16,7 +17,7 @@ public interface MapService {
 	 * @param mapTO
 	 * @return
 	 */
-	void saveMap(MapInputTO mapTO);
+	void saveMap(MapTO mapTO);
 
 	/**
 	 * @param name

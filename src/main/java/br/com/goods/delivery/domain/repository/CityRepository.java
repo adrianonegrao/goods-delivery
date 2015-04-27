@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import br.com.goods.delivery.domain.model.City;
 
 /**
- * @City entity repository
+ * {@link City} entity repository
  * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0

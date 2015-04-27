@@ -2,6 +2,7 @@ package br.com.goods.delivery.domain.model;
 
 import org.springframework.data.neo4j.annotation.EndNode;
 import org.springframework.data.neo4j.annotation.Fetch;
+import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.RelationshipEntity;
 import org.springframework.data.neo4j.annotation.StartNode;
 
@@ -13,8 +14,11 @@ import org.springframework.data.neo4j.annotation.StartNode;
  *
  */
 @RelationshipEntity(type=Route.DISTANCE_RELATIONSHIP_TYPE)
-public class Route extends AbstractEntity {
+public class Route implements Entity {
 	public static final String DISTANCE_RELATIONSHIP_TYPE = "distance";
+	
+	@GraphId
+	private Long id;
 	
 	@StartNode  @Fetch
 	private City origin;
@@ -28,11 +32,6 @@ public class Route extends AbstractEntity {
 		super();
 	}
 
-	/**
-	 * @param origin
-	 * @param destination
-	 * @param distance
-	 */
 	public Route(City origin, City destination, Double distance) {
 		super();
 		this.origin = origin;
@@ -40,51 +39,38 @@ public class Route extends AbstractEntity {
 		this.distance = distance;
 	}
 
-	/**
-	 * @return the origin
-	 */
 	public City getOrigin() {
 		return origin;
 	}
 
-	/**
-	 * @param origin the origin to set
-	 */
 	public void setOrigin(City origin) {
 		this.origin = origin;
 	}
 
-	/**
-	 * @return the destination
-	 */
 	public City getDestination() {
 		return destination;
 	}
 
-	/**
-	 * @param destination the destination to set
-	 */
 	public void setDestination(City destination) {
 		this.destination = destination;
 	}
 
-	/**
-	 * @return the distance
-	 */
 	public Double getDistance() {
 		return distance;
 	}
 
-	/**
-	 * @param distance the distance to set
-	 */
 	public void setDistance(Double distance) {
 		this.distance = distance;
 	}
+	
+	public Long getId() {
+		return id;
+	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -97,9 +83,6 @@ public class Route extends AbstractEntity {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -127,13 +110,11 @@ public class Route extends AbstractEntity {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "Route [origin=" + origin + ", destination=" + destination
 				+ ", distance=" + distance + "]";
 	}
+
 
 }

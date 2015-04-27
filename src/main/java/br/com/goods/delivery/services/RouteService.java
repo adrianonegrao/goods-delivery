@@ -4,6 +4,8 @@ import br.com.goods.delivery.domain.model.Route;
 
 
 /**
+ * Services with business rules about routes.
+ * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
  *

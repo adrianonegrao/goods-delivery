@@ -1,4 +1,4 @@
-package br.com.goods.delivery.test.mock.helper;
+package br.com.goods.delivery.test.helper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import br.com.goods.delivery.api.rs.to.CityTO;
+import br.com.goods.delivery.api.rs.to.MapTO;
 import br.com.goods.delivery.api.rs.to.RouteTO;
-import br.com.goods.delivery.api.rs.to.input.MapInputTO;
 import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.domain.model.Route;
 
@@ -27,6 +27,7 @@ public class TestMockHelper {
 	
 	private static Map<String, City> map = new HashMap<String, City>(); 
 	private static List<City> cities = new ArrayList<City>();
+	private static Set<City> setCities = new HashSet<City>();
 	
 	static{
 		City cityA = new City("a", MAP_NAME);
@@ -48,10 +49,18 @@ public class TestMockHelper {
 		cities.add(cityB);
 		cities.add(cityC);
 		cities.add(cityD);
+		setCities.add(cityA);
+		setCities.add(cityB);
+		setCities.add(cityC);
+		setCities.add(cityD);
 	}
 
 	public static List<City> getCities(){
 		return cities;
+	}
+
+	public static Set<City> getSetCities(){
+		return setCities;
 	}
 	
 	public static Map<String, City> getMap(){
@@ -62,8 +71,8 @@ public class TestMockHelper {
 		return map.get(cityName);
 	}
 
-	public static MapInputTO createMapInputTO() {
-		MapInputTO mapTO = new MapInputTO();
+	public static MapTO createMapInputTO() {
+		MapTO mapTO = new MapTO();
 		mapTO.setMapName(MAP_NAME);
 		Set<RouteTO> routesTO = new HashSet<RouteTO>();
 		
@@ -76,6 +85,19 @@ public class TestMockHelper {
 		mapTO.setRoutes(routesTO);
 		
 		return mapTO;
+	}
+	
+	public static Set<CityTO> getSetCityTO() {
+		Set<CityTO> citiesTO = new HashSet<CityTO>();
+		for (City city : cities) {
+			Set<RouteTO> routesTO = new HashSet<RouteTO>();
+			for (Route route : city.getRoutes()) {
+				routesTO.add(new RouteTO(route.getOrigin().getName(), route
+						.getDestination().getName(), route.getDistance()));
+			}
+			citiesTO.add(new CityTO(city.getName(), routesTO, city.getId()));
+		}
+		return citiesTO;
 	}
 	
 	public static CityTO getCityTO(String cityName) {

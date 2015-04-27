@@ -12,7 +12,7 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
  * @version 1.0
  *
  */
-@ApiModel(value = "A map is a...")
+@ApiModel(value = "Map")
 public class MapTO implements TransferObject{
 	private static final long serialVersionUID = 7936926986022175328L;
 	

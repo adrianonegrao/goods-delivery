@@ -21,6 +21,8 @@ import br.com.goods.delivery.services.CityService;
 import br.com.goods.delivery.services.exception.NotFoundException;
 
 /**
+ * Services with business rules about routes.
+ * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
  *
@@ -38,7 +40,6 @@ public class CityServiceImpl implements CityService {
 	
 	@Override
 	public City saveCity(City city){
-		
 		City existingCity = cityRepository.findByMapNameAndName(city.getMapName(), city.getName());
 		if (existingCity!=null){
 			return existingCity;
@@ -53,7 +54,8 @@ public class CityServiceImpl implements CityService {
 	
 	@Override
 	public Set<CityTO> findByName(String name){
-		return cityHelper.fromCitySetToTOSet(cityRepository.findByName(name));
+		Set<City> cities = cityRepository.findByName(name);
+		return cityHelper.fromCitySetToTOSet(cities);
 	}
 	
 	@Override
@@ -91,8 +93,11 @@ public class CityServiceImpl implements CityService {
 	}
 	
 	@Override
-	public void deleteByMapNameAndName(String mapName, String name){
+	public void deleteByMapNameAndName(String mapName, String name) throws NotFoundException{
 		City city = cityRepository.findByMapNameAndName(mapName, name);
+		if(city == null){
+			throw new NotFoundException("City does not found");
+		}
 		cityRepository.delete(city);
 	}
 }

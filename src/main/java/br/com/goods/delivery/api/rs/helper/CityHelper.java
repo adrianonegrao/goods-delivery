@@ -11,13 +11,14 @@ import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.domain.model.Route;
 
 /**
+ * Utility class to helps transform city entitys into to.
  * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
  *
  */
 @Component
-public class CityHelper implements Helper {
+public class CityHelper {
 
 	/**
 	 * Transform {@link City} into {@link CityTO}.

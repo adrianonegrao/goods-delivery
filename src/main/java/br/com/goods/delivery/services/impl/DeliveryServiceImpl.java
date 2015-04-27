@@ -1,5 +1,7 @@
 package br.com.goods.delivery.services.impl;
 
+import static br.com.goods.delivery.domain.model.Route.DISTANCE_RELATIONSHIP_TYPE;
+
 import java.text.MessageFormat;
 
 import org.apache.cxf.common.util.StringUtils;
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.goods.delivery.api.rs.to.CityTO;
-import br.com.goods.delivery.api.rs.to.output.DeliveryOutputTO;
+import br.com.goods.delivery.api.rs.to.output.DeliveryTO;
 import br.com.goods.delivery.domain.model.Route;
 import br.com.goods.delivery.services.CityService;
 import br.com.goods.delivery.services.DeliveryService;
@@ -27,6 +29,8 @@ import br.com.goods.delivery.services.exception.FieldNotNullException;
 import br.com.goods.delivery.services.exception.NotFoundException;
 
 /**
+ * Services that provides the core business rules about delivery, cost and routes. 
+ * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
  *
@@ -42,7 +46,7 @@ public class DeliveryServiceImpl implements DeliveryService{
 	@Autowired
 	private CityService cityService;
 	
-	public DeliveryOutputTO findLessExpensiveCostDelivery(String mapName, String originName, String destinationName, Double price, Double autonomy) throws NotFoundException, FieldNotNullException {
+	public DeliveryTO findLessExpensiveCostDelivery(String mapName, String originName, String destinationName, Double price, Double autonomy) throws NotFoundException, FieldNotNullException {
 		this.validateParameters(mapName, originName, destinationName, price, autonomy);
 		
 		WeightedPath dijkstraUsage = getShortestRouteWithDijkstra(mapName, originName, destinationName);
@@ -61,7 +65,7 @@ public class DeliveryServiceImpl implements DeliveryService{
 		String route = sb.toString();
 		String message = MessageFormat.format("Route {0} costs {1} and is the less expensive cost delivery route", route, cost);
 		
-		return new DeliveryOutputTO(cost, route, message);
+		return new DeliveryTO(cost, route, message);
 	}
 	
     private WeightedPath getShortestRouteWithDijkstra(String mapName, String originName, String destinationName) throws NotFoundException{
@@ -69,7 +73,7 @@ public class DeliveryServiceImpl implements DeliveryService{
     	CityTO destination = cityService.findByMapNameAndName(mapName, destinationName);
 
     	PathFinder<WeightedPath> finder = GraphAlgoFactory.dijkstra(                
-            PathExpanders.forTypeAndDirection(new DistanceRelationshipType(), Direction.BOTH), Route.DISTANCE_RELATIONSHIP_TYPE );
+            PathExpanders.forTypeAndDirection(new DistanceRelationshipType(), Direction.BOTH), DISTANCE_RELATIONSHIP_TYPE );
 
     	Node originNode = graphDatabaseService.getNodeById(origin.getId());
     	Node destinatioNode = graphDatabaseService.getNodeById(destination.getId());
@@ -79,7 +83,7 @@ public class DeliveryServiceImpl implements DeliveryService{
 	 private class DistanceRelationshipType implements RelationshipType {
 		@Override
 		public String name() {
-			return Route.DISTANCE_RELATIONSHIP_TYPE;
+			return DISTANCE_RELATIONSHIP_TYPE;
 		}
 	}
 	 

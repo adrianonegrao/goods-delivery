@@ -7,6 +7,8 @@ import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.services.exception.NotFoundException;
 
 /**
+ * Services that provides the business rules about cities and its routes.
+ * 
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
  *
@@ -48,8 +50,9 @@ public interface CityService {
 	/**
 	 * @param mapName
 	 * @param name
+	 * @throws NotFoundException 
 	 */
-	void deleteByMapNameAndName(String mapName, String name);
+	void deleteByMapNameAndName(String mapName, String name) throws NotFoundException;
 
 	/**
 	 * @param mapName
