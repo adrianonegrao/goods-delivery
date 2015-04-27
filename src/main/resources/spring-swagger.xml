@@ -21,7 +21,7 @@
 	  <property name="basePath" value="http://localhost:8080/goods-delivery/api"/>
 	  <property name="title" value="Goods Delivery Rest API"/>
 	  <property name="description" value="Rest API of a delivery system that provides the less expensive cost of a delivery and its path, based on inputs parameters."/>
-	  <property name="contact" value="http://tayguer.branded.me/"/>
+	  <property name="contact" value="tayguer@gmail.com"/>
 	  <property name="license" value="Apache License, Version 2.0"/>
 	  <property name="licenseUrl" value="http://www.apache.org/licenses/LICENSE-2.0"/>
 	  <property name="scan" value="true"/>
