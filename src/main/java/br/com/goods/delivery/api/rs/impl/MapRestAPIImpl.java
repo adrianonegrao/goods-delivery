@@ -51,7 +51,7 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@PUT
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "Operation method that creates or update a Map.", response = String.class)
+	@ApiOperation(value = "Operation method that creates or updates a Map.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "Invalid parameters"),
@@ -71,7 +71,7 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Consumes({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "Operation method that creates or update a Map.", response = String.class)
+	@ApiOperation(value = "Operation method that creates or updates a Map.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "Invalid parameters"),
@@ -90,7 +90,7 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@GET
 	@Path("/city/{cityId}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "Operation method that find a city by its id.", response = String.class)
+	@ApiOperation(value = "Operation method that finds a city by its id.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "Invalid parameters"),
@@ -113,7 +113,7 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@GET
 	@Path("/{mapName}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "Operation method that find a city in all registered maps", response = String.class)
+	@ApiOperation(value = "Operation method that finds a city in all registered maps", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "Invalid parameters"),
@@ -137,7 +137,7 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@GET
 	@Path("/{mapName}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "Operation method that find all map's routes.", response = String.class)
+	@ApiOperation(value = "Operation method that finds all map's routes.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "Invalid parameters"),
@@ -158,7 +158,7 @@ public class MapRestAPIImpl implements MapRestAPI{
 	@DELETE
 	@Path("/{mapName}")
 	@Produces({MediaType.APPLICATION_JSON})
-	@ApiOperation(value = "Operation method that delete a map.", response = String.class)
+	@ApiOperation(value = "Operation method that deletes a map.", response = String.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
 			@ApiResponse(code = 400, message = "Invalid parameters"),
