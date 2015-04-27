@@ -2,7 +2,7 @@ package br.com.goods.delivery.api.rs;
 
 import javax.ws.rs.core.Response;
 
-import br.com.goods.delivery.api.rs.to.MapTO;
+import br.com.goods.delivery.api.rs.to.input.MapInputTO;
 
 /**
  * Rest API contract that contains the map operation like get, delete or update a map and cities. 
@@ -19,7 +19,7 @@ public interface MapRestAPI {
 	 * @param input
 	 * @return @link {@link Response}
 	 */
-	Response createOrUpdateMap(MapTO input);
+	Response createOrUpdateMap(MapInputTO input);
 
 	/**
 	 * Operation method that delete a map.
@@ -35,7 +35,7 @@ public interface MapRestAPI {
 	 * @param input
 	 * @return @link {@link Response}
 	 */
-	Response createMap(MapTO input);
+	Response createMap(MapInputTO input);
 
 	/**
 	 * Operation method that find all map's routes.

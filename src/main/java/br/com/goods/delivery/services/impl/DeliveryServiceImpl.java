@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.goods.delivery.api.rs.to.CityTO;
 import br.com.goods.delivery.api.rs.to.output.DeliveryTO;
-import br.com.goods.delivery.domain.model.Route;
 import br.com.goods.delivery.services.CityService;
 import br.com.goods.delivery.services.DeliveryService;
 import br.com.goods.delivery.services.exception.FieldNotNullException;
@@ -49,6 +48,8 @@ public class DeliveryServiceImpl implements DeliveryService{
 	public DeliveryTO findLessExpensiveCostDelivery(String mapName, String originName, String destinationName, Double price, Double autonomy) throws NotFoundException, FieldNotNullException {
 		this.validateParameters(mapName, originName, destinationName, price, autonomy);
 		
+		logger.debug("mapName: {}, originName: {}, destinationName: {}, price: {}, autonomy: {}", mapName, originName, destinationName, price, autonomy);
+		
 		WeightedPath dijkstraUsage = getShortestRouteWithDijkstra(mapName, originName, destinationName);
 		Double distance = dijkstraUsage.weight();
 		Double cost = (price * distance)/autonomy;
@@ -63,7 +64,9 @@ public class DeliveryServiceImpl implements DeliveryService{
 		}
 		
 		String route = sb.toString();
-		String message = MessageFormat.format("Route {0} costs {1} and is the less expensive cost delivery route", route, cost);
+		String message = MessageFormat.format("The less expensive cost delivery route is {0} and costs $ {1}", route, cost);
+		
+		logger.debug("The less expensive cost delivery route is {} and costs $ {}", route, cost);
 		
 		return new DeliveryTO(cost, route, message);
 	}
@@ -72,7 +75,7 @@ public class DeliveryServiceImpl implements DeliveryService{
     	CityTO origin = cityService.findByMapNameAndName(mapName, originName);
     	CityTO destination = cityService.findByMapNameAndName(mapName, destinationName);
 
-    	PathFinder<WeightedPath> finder = GraphAlgoFactory.dijkstra(                
+    	PathFinder<WeightedPath> finder = GraphAlgoFactory.dijkstra(
             PathExpanders.forTypeAndDirection(new DistanceRelationshipType(), Direction.BOTH), DISTANCE_RELATIONSHIP_TYPE );
 
     	Node originNode = graphDatabaseService.getNodeById(origin.getId());

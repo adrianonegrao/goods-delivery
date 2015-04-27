@@ -1,14 +1,9 @@
-/**
- * 
- */
 package br.com.goods.delivery.services.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.cxf.common.util.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +25,6 @@ import br.com.goods.delivery.services.exception.NotFoundException;
 @Service
 @Transactional
 public class CityServiceImpl implements CityService {
-	private static final Logger logger = LoggerFactory.getLogger(CityServiceImpl.class);
 	
 	@Autowired
 	private CityRepository cityRepository;

@@ -28,7 +28,7 @@ public class City implements Entity {
 	
 	private String mapName;
 	
-	@Fetch @RelatedToVia(type = "distance",direction=Direction.BOTH)
+	@Fetch @RelatedToVia(type="distance",direction=Direction.BOTH)
     private Set<Route> routes;
 	
 	public City(){

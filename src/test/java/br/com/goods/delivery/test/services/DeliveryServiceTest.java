@@ -9,9 +9,12 @@ import static br.com.goods.delivery.test.helper.TestMockHelper.MAP_NAME;
 import static br.com.goods.delivery.test.helper.TestMockHelper.ORIGIN_NAME;
 import static br.com.goods.delivery.test.helper.TestMockHelper.PRICE;
 import static br.com.goods.delivery.test.helper.TestMockHelper.createMapInputTO;
+import static com.jayway.restassured.RestAssured.get;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ import br.com.goods.delivery.services.MapService;
 import br.com.goods.delivery.services.exception.FieldNotNullException;
 import br.com.goods.delivery.services.exception.NotFoundException;
 
+import com.jayway.restassured.path.json.JsonPath;
+import com.jayway.restassured.response.Response;
 /**
  * @author Tayguer A. Ap. Onofre
  * @version 1.0
@@ -87,5 +92,15 @@ public class DeliveryServiceTest {
 	@Test(expected=FieldNotNullException.class)
 	public void testExceptionFindLessExpensiveCostDeliveryAutonomyNull() throws NotFoundException, FieldNotNullException{
 		deliveryService.findLessExpensiveCostDelivery(MAP_NAME, ORIGIN_NAME, DESTINATION_NAME,  PRICE, null);
+	}
+	
+	@Ignore
+	@Test
+	public void testGetMap() {
+	  Response res = get("/map/{mapName}");
+	  assertEquals(200, res.getStatusCode());
+	  String json = res.asString();
+	  JsonPath jp = new JsonPath(json);
+	  assertEquals("teste", jp.get("mapName"));
 	}
 }

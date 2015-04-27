@@ -1,6 +1,3 @@
-/**
- * 
- */
 package br.com.goods.delivery.api.rs.to;
 
 import java.io.Serializable;

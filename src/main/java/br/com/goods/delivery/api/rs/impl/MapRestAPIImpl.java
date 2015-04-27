@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import br.com.goods.delivery.api.rs.MapRestAPI;
 import br.com.goods.delivery.api.rs.to.CityTO;
 import br.com.goods.delivery.api.rs.to.MapTO;
-import br.com.goods.delivery.api.rs.to.MapTO;
+import br.com.goods.delivery.api.rs.to.input.MapInputTO;
 import br.com.goods.delivery.api.rs.to.output.OutputTO;
 import br.com.goods.delivery.services.CityService;
 import br.com.goods.delivery.services.MapService;
@@ -59,7 +59,7 @@ public class MapRestAPIImpl implements MapRestAPI{
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
 	@Override
-	public Response createMap(MapTO mapTO) {
+	public Response createMap(MapInputTO mapTO) {
 		try{
 			mapService.saveMap(mapTO);
 		}catch(Exception e){
@@ -78,7 +78,7 @@ public class MapRestAPIImpl implements MapRestAPI{
 			@ApiResponse(code = 500, message = "Internal server error")
 	})
 	@Override
-	public Response createOrUpdateMap(MapTO mapInputTO) {
+	public Response createOrUpdateMap(MapInputTO mapInputTO) {
 		try{
 			mapService.saveMap(mapInputTO);
 		}catch(Exception e){

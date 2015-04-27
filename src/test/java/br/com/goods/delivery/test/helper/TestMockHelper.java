@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import br.com.goods.delivery.api.rs.to.CityTO;
-import br.com.goods.delivery.api.rs.to.MapTO;
 import br.com.goods.delivery.api.rs.to.RouteTO;
+import br.com.goods.delivery.api.rs.to.input.MapInputTO;
 import br.com.goods.delivery.domain.model.City;
 import br.com.goods.delivery.domain.model.Route;
 
@@ -71,8 +71,8 @@ public class TestMockHelper {
 		return map.get(cityName);
 	}
 
-	public static MapTO createMapInputTO() {
-		MapTO mapTO = new MapTO();
+	public static MapInputTO createMapInputTO() {
+		MapInputTO mapTO = new MapInputTO();
 		mapTO.setMapName(MAP_NAME);
 		Set<RouteTO> routesTO = new HashSet<RouteTO>();
 		

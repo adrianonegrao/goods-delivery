@@ -123,7 +123,13 @@
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+		 	<groupId>com.jayway.restassured</groupId>
+		 	<artifactId>rest-assured</artifactId>
+		 	<version>1.4</version>
+		 	<scope>test</scope>
+		</dependency>
+		
 		<!--   APACHE CXF -->
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
@@ -181,6 +187,7 @@
 		    <artifactId>aspectjrt</artifactId>
 		    <version>1.7.4</version>
 		</dependency>
+
 	</dependencies>
 
 	<repositories>

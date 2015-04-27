@@ -9,7 +9,6 @@ import static br.com.goods.delivery.test.helper.TestMockHelper.getSetCityTO;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anySet;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.never;
@@ -66,7 +65,7 @@ public class CityServiceTest {
 	
 	@Test
 	public void testFindByName(){
-		when(cityHelper.fromCitySetToTOSet(anySet())).thenReturn(getSetCityTO());
+		when(cityHelper.fromCitySetToTOSet(getSetCities())).thenReturn(getSetCityTO());
 		Set<CityTO> cityTO = cityService.findByName(anyString());
 		assertNotNull(cityTO);
 	}

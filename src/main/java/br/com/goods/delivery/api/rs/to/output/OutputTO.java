@@ -17,7 +17,7 @@ public class OutputTO implements TransferObject{
 	
 	private String message;
 	private TransferObject returnedObject;
-	;
+
 	public OutputTO(){
 		super();
 	}

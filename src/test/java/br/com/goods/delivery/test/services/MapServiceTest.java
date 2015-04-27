@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,7 +35,7 @@ public class MapServiceTest {
 	private CityHelper cityHelper;
 	
 	@Mock
-	private CityService cityService ;
+	private CityService cityService;
 
 	@Test(expected=NotFoundException.class)
 	public void testFindByNameNull() throws NotFoundException{
