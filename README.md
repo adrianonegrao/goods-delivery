@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tayguer/goods-delivery.svg?branch=develop)](https://travis-ci.org/tayguer/goods-delivery)
+
 ## Goods Delivery
 This project contains the source code of Goods Delivery, a Rest API of a delivery system that provides the less expensive cost of a delivery and its route. It provides features for getting, creating, updating or deleting maps and routes. Additionally this project also provides a web interface to consume and document the Rest API.
 
